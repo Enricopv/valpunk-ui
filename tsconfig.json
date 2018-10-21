@@ -24,6 +24,9 @@
     "noUnusedLocals": true,
     "strictNullChecks": false,
     "skipLibCheck": true,
-    "importHelpers": true
+    "importHelpers": true,
+    "forceConsistentCasingInFileNames": true,
+    "suppressImplicitAnyIndexErrors": true,
+    "noImplicitUseStrict": true
   }
 }

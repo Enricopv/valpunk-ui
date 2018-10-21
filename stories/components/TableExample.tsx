@@ -1,13 +1,15 @@
 import * as React from "react";
 import styled from "styled-components";
-// import { TableContainer, TableHeader, TableFooter, TableRow } from '../../src/components/Table';
-
+import { TableContainer } from "../../src/components/Table";
 const data = [
   { id: "1", name: "Enrico", profession: "programmer" },
   { id: "2", name: "Jon", profession: "singer" },
-
   { id: "3", name: "Jake", profession: "knower of things" }
 ];
+
+interface IRowData {
+  [key: string]: string | number;
+}
 
 const headerData = [
   { id: "0", name: "ID" },
@@ -15,37 +17,48 @@ const headerData = [
   { id: "2", name: "Profession" }
 ];
 
-export default class TableExample extends React.PureComponent {
+export default class TableExample extends React.PureComponent<
+  {},
+  { data: IRowData[] }
+> {
   public render() {
     return (
-      <StyledTableContainer style={{ flexDirection: "column" }}>
-        <StyledTableHeader>
-          {headerData.map(header => (
-            <StyledHeaderCell numRows={headerData.length} key={header.id}>
-              {header.name}
-            </StyledHeaderCell>
-          ))}
-        </StyledTableHeader>
-        {data.map((person: { [key: string]: string | number }) => {
-          let rowData = [];
-          for (let key in person) {
-            rowData.push(
-              <StyledTableCell key={key} numRows={headerData.length}>
-                {person[key.toString()]}
-              </StyledTableCell>
-            );
-          }
-          return <StyledTableRow>{rowData}</StyledTableRow>;
-        })}
-      </StyledTableContainer>
+      <TableContainer data={data}>
+        {(props) => (
+          <>
+            <StyledTableHeader>
+              {headerData.map(header => (
+                <StyledHeaderCell
+                  onClick={props.sort("name", "desc")}
+                  numRows={headerData.length}
+                  key={header.id}
+                >
+                  {header.name}
+                </StyledHeaderCell>
+              ))}
+            </StyledTableHeader>
+            {props.data.map((person) => {
+              let rowData = [];
+              for (let key in person) {
+                rowData.push(
+                  <StyledTableCell key={key} numRows={headerData.length}>
+                    {person[key.toString()]}
+                  </StyledTableCell>
+                );
+              }
+              return <StyledTableRow>{rowData}</StyledTableRow>;
+            })}
+          </>
+        )}
+      </TableContainer>
     );
   }
 }
 
-const StyledTableContainer = styled.div`
-  display: flex;
-  flex: 1;
-`;
+// const StyledTableContainer = styled.div`
+//   display: flex;
+//   flex: 1;
+// `;
 
 const StyledTableHeader = styled.div`
   display: flex;
