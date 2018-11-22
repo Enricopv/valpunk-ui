@@ -9,7 +9,7 @@ module.exports = (baseConfig, env, config) => {
   config.resolve.extensions.push(".ts", ".tsx");
   config.resolve.alias["components"] = path.resolve(
     __dirname,
-    "src/components/"
+    "src/components/basic"
   );
   return config;
 };

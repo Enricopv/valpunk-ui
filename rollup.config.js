@@ -22,7 +22,8 @@ export default {
       globals: {
         react: "React",
         "styled-components": "styled",
-        immer: "produce"
+        immer: "produce",
+        "@material-ui": "Paper"
       },
       file: pkg.main,
       format: "cjs"
@@ -31,7 +32,8 @@ export default {
       globals: {
         react: "React",
         "styled-components": "styled",
-        immer: "produce"
+        immer: "produce",
+        "@material-ui": "Paper"
       },
       file: pkg.module,
       format: "es"
@@ -49,13 +51,17 @@ export default {
       browser: true
     }),
     commonjs({
-      include: "node_modules/styled-components",
+      include: [
+        "node_modules/styled-components",
+        "node_modules/@material-ui/core"
+      ],
       // exclude: ["node_modues/@types/**"],
       namedExports: {
         // The commonjs plugin can't figure out the exports of some modules, so if rollup gives warnings like:
         // ⚠️   'render' is not exported by 'node_modules/react-dom/index.js'
         // Just add the mentioned file / export here
         "src/index.ts": ["RegularButton"],
+        "node_modules/@material-ui/core": ["Paper"],
         "node_modules/react-dom/index.js": ["render"],
         "node_modules/react/index.js": [
           "Component",
