@@ -1,6 +1,5 @@
 import * as React from "react";
 import styled, { keyframes } from "styled-components";
-import { LIGHT_BLUE } from "../../../constants/constants";
 import ButtonBase from "../ButtonBase/ButtonBase";
 
 export interface RegularButtonProps extends React.HTMLAttributes<HTMLElement> {}
@@ -35,7 +34,7 @@ const ripple = keyframes`
 const StyledRegularButton = styled(ButtonBase)`
   && {
     color: white;
-    background-color: ${LIGHT_BLUE};
+    background-color: tomato;
     font-size: 1em;
     padding: 10px 40px;
     border-radius: 5px;

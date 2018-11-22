@@ -24,7 +24,7 @@ export default {
         "styled-components": "styled",
         immer: "produce"
       },
-      file: "index.js",
+      file: pkg.main,
       format: "cjs"
     },
     {
@@ -33,7 +33,7 @@ export default {
         "styled-components": "styled",
         immer: "produce"
       },
-      file: "index.es.js",
+      file: pkg.module,
       format: "es"
     }
   ],
@@ -84,7 +84,9 @@ export default {
         [
           "babel-plugin-styled-components",
           { ssr: true, displayName: true, preprocess: true }
-        ]
+        ],
+        ["import"],
+        ["external-helpers"]
       ]
     })
   ]

@@ -9,10 +9,12 @@
     "declarationDir": "./dist",
     "outDir": "./lib/",
     "moduleResolution": "node",
-    "rootDirs": ["./src/","./stories"],
+    "rootDirs": ["./src/", "./stories"],
     "baseUrl": "./src",
     "paths": {
-      "~/components/*": ["./components/*"]
+      "~/components/*": ["./components/*"],
+
+      "~/constants/*": ["./constants/*"]
     },
     "removeComments": true,
     "allowSyntheticDefaultImports": true,
