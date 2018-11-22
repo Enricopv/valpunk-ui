@@ -12,9 +12,9 @@ interface IRowData {
 }
 
 const headerData = [
-  { id: "0", name: "ID" },
-  { id: "1", name: "Name" },
-  { id: "2", name: "Profession" }
+  { id: "0", name: "id" },
+  { id: "1", name: "name" },
+  { id: "2", name: "profession" }
 ];
 
 export default class TableExample extends React.PureComponent<
@@ -29,7 +29,7 @@ export default class TableExample extends React.PureComponent<
             <StyledTableHeader>
               {headerData.map(header => (
                 <StyledHeaderCell
-                  onClick={props.sort("name", "desc")}
+                  onClick={props.sort(header.name, "desc")}
                   numRows={headerData.length}
                   key={header.id}
                 >

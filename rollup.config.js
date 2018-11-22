@@ -8,20 +8,32 @@ import babel from "rollup-plugin-babel";
 export default {
   input: "./src/index.ts",
   output: [
+    // {
+    //   globals: {
+    //     react: "React",
+    //     "styled-components": "styled",
+    //     immer: "produce"
+    //   },
+    //   file: pkg.main,
+    //   format: "iife",
+    //   name: "index.js"
+    // },
     {
-      globals: { react: "React", "styled-components": "styled" },
-      file: pkg.main,
-      format: "iife",
-      name: "index.js"
-    },
-    {
-      globals: { react: "React", "styled-components": "styled" },
-      file: pkg.main,
+      globals: {
+        react: "React",
+        "styled-components": "styled",
+        immer: "produce"
+      },
+      file: "index.js",
       format: "cjs"
     },
     {
-      globals: { react: "React", "styled-components": "styled" },
-      file: pkg.module,
+      globals: {
+        react: "React",
+        "styled-components": "styled",
+        immer: "produce"
+      },
+      file: "index.es.js",
       format: "es"
     }
   ],
@@ -37,7 +49,7 @@ export default {
       browser: true
     }),
     commonjs({
-      // include: "node_modules/**",
+      include: "node_modules/styled-components",
       // exclude: ["node_modues/@types/**"],
       namedExports: {
         // The commonjs plugin can't figure out the exports of some modules, so if rollup gives warnings like:
@@ -67,7 +79,13 @@ export default {
     }),
     // external(),
     babel({
-      exclude: "node_modules/**"
+      exclude: "node_modules/**",
+      plugins: [
+        [
+          "babel-plugin-styled-components",
+          { ssr: true, displayName: true, preprocess: true }
+        ]
+      ]
     })
   ]
 };

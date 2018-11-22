@@ -13,14 +13,26 @@ interface TableContainerProps {
       sort: (
         category: string,
         direction: string
-      ) => (_event: React.MouseEvent<HTMLDivElement>) => void,
-      data: IRowData[]
+      ) => (_event: React.MouseEvent<HTMLDivElement>) => void;
+      data: IRowData[];
+      withSorting: (array: any[], order: string, orderBy: string) => any[];
     }
-  ) => React.ReactNode
+  ) => React.ReactNode;
 }
 
 interface State {
   data?: IRowData[];
+  orderCategory?: string;
+}
+
+function desc(a: any[], b: any[], orderBy: string) {
+  if (b[orderBy] < a[orderBy]) {
+    return -1;
+  }
+  if (b[orderBy] > a[orderBy]) {
+    return 1;
+  }
+  return 0;
 }
 
 export default class TableContainer extends React.PureComponent<
@@ -53,10 +65,7 @@ export default class TableContainer extends React.PureComponent<
     console.log("hi");
     console.log("category,", category);
     // let { data } = this.state;
-    const nextState = this.stableSort(
-      this.state.data,
-      this.getSorting(direction, category)
-    );
+    const nextState = this.withSorting(this.state.data, "asc", "name");
 
     console.log(nextState);
     this.setState({
@@ -66,37 +75,34 @@ export default class TableContainer extends React.PureComponent<
 
   public getSorting(order: string, orderBy: string) {
     return order === "desc"
-      ? (a: any[], b: any[]) => this.desc(a, b, orderBy)
-      : (a: any[], b: any[]) => -this.desc(a, b, orderBy);
+      ? (a: any[], b: any[]) => desc(a, b, orderBy)
+      : (a: any[], b: any[]) => desc(a, b, orderBy);
   }
 
-  public stableSort(array: any[], cmp: (a: any[], b: any[]) => number) {
+  public withSorting(array: any[], order: string, orderBy: string) {
     const stabilizedThis = array.map((el, index) => [el, index]);
     stabilizedThis.sort((a: any[], b: any[]) => {
-      const order = cmp(a[0], b[0]);
-      if (order !== 0) {
-        return order;
+      let newOrder;
+      if (order === "desc") {
+        newOrder = desc(a[0], b[0], orderBy);
+      } else {
+        newOrder = -desc(a[0], b[0], orderBy);
+      }
+      if (newOrder !== 0) {
+        return newOrder;
       }
       return a[1] - b[1];
     });
     return stabilizedThis.map(el => el[0]);
   }
 
-  public desc(a: any[], b: any[], orderBy: string) {
-    if (b[orderBy] < a[orderBy]) {
-      return -1;
-    }
-    if (b[orderBy] > a[orderBy]) {
-      return 1;
-    }
-    return 0;
-  }
   public render() {
     return (
       <StyledTableContainer>
         {this.props.children({
           sort: this.sort,
-          data: this.state.data
+          data: this.state.data,
+          withSorting: this.withSorting
         })}
       </StyledTableContainer>
     );

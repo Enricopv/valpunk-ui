@@ -1,4 +1,11 @@
 {
   "presets": ["@babel/preset-env", "stage-0", "@babel/preset-react"],
-  "plugins": ["import", "external-helpers"]
+  "plugins": [
+    [
+      "babel-plugin-styled-components",
+      { "ssr": true, "displayName": true, "preprocess": true }
+    ],
+    ["import"],
+    ["external-helpers"]
+  ]
 }
