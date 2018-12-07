@@ -4,6 +4,19 @@ import * as React from "react";
 import Navbar from "./index";
 import MobileNavbar from "./MobileNavbar";
 import DesktopNavbar from "./DesktopNavbar/index";
+import MenuItem from "@material-ui/core/MenuItem";
+
+const navButtons = [
+  {
+    text: "How",
+    link: "/how"
+  },
+  {
+    text: "Try Free",
+    link: "/tryfree"
+  }
+];
+
 (storiesOf("Navbar", module) as any)
   .add(
     "Responsive",
@@ -16,7 +29,12 @@ import DesktopNavbar from "./DesktopNavbar/index";
           src:
             "https://s3.us-east-2.amazonaws.com/valpunk-cdn/happily/happily_logo.png"
         }}
-      />
+        navbarStyle={{ backgroundColor: "tomato" }}
+      >
+        {navButtons.map(item => (
+          <MenuItem key={item.text}>{item.text}</MenuItem>
+        ))}
+      </Navbar>
     ))
   )
   .add(

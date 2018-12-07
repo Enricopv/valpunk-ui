@@ -4,14 +4,9 @@ import Menu from "@material-ui/core/Menu";
 import Toolbar from "@material-ui/core/Toolbar";
 import MenuIcon from "@material-ui/icons/Menu";
 import * as React from "react";
+import { NavbarGeneralProps } from "./index";
 
-interface Props {
-  children?: React.ReactNode;
-  onClick?: (_event: React.MouseEvent<HTMLElement>) => void;
-  logo?: { src?: string; onClick?: () => void };
-}
-
-const MobileNavbar = ({ logo, children }: Props) => {
+const MobileNavbar = (props: NavbarGeneralProps) => {
   const [anchorEl, setAnchorEl] = React.useState(null);
   const open = Boolean(anchorEl);
 
@@ -27,11 +22,19 @@ const MobileNavbar = ({ logo, children }: Props) => {
     <div>
       <AppBar
         position="static"
-        style={{ backgroundColor: "white", fontFamily: "Roboto" }}
+        style={{
+          backgroundColor: "white",
+          fontFamily: "Roboto",
+          ...props.style
+        }}
       >
         <Toolbar>
-          <IconButton color="inherit" aria-label="Menu" onClick={logo.onClick}>
-            <img src={logo.src} style={{ width: 80, height: "auto" }} />
+          <IconButton
+            color="inherit"
+            aria-label="Menu"
+            onClick={props.logo.onClick}
+          >
+            <img src={props.logo.src} style={{ width: 80, height: "auto" }} />
           </IconButton>
           <div style={{ flexGrow: 1 }} />
           <div>
@@ -51,7 +54,7 @@ const MobileNavbar = ({ logo, children }: Props) => {
               open={open}
               onClose={handleClose}
             >
-              {children}
+              {props.children}
             </Menu>
           </div>
         </Toolbar>

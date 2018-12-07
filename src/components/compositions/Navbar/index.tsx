@@ -1,5 +1,4 @@
 import { withWidth } from "@material-ui/core";
-import MenuItem from "@material-ui/core/MenuItem";
 import { WithWidth } from "@material-ui/core/withWidth";
 import * as React from "react";
 import DesktopNavbar from "./DesktopNavbar";
@@ -10,33 +9,25 @@ export interface NavButtonProps {
   link?: string;
 }
 
-const navButtons: NavButtonProps[] = [
-  {
-    text: "How",
-    link: "/how"
-  },
-  {
-    text: "Try Free",
-    link: "/tryfree"
-  }
-];
-
-export interface NavbarProps extends WithWidth {
-  onClick?: (_event: React.MouseEvent<HTMLElement>) => void;
+export interface NavbarGeneralProps {
+  children?: React.ReactNode;
   logo?: { src?: string; onClick?: () => void };
+  style?: React.CSSProperties;
 }
 
-const Navbar = ({ width, onClick, logo }: NavbarProps) => {
-  const NavComponent =
+export interface NavbarProps extends WithWidth {
+  logo?: { src?: string; onClick?: () => void };
+  navbarStyle?: React.CSSProperties;
+  children?: React.ReactNode;
+}
+
+const Navbar = ({ width, logo, navbarStyle, children }: NavbarProps) => {
+  const NavComponent: (props: NavbarGeneralProps) => JSX.Element =
     width === "xs" || width === "sm" ? MobileTopBar : DesktopNavbar;
 
   return (
-    <NavComponent logo={logo}>
-      {navButtons.map(item => (
-        <MenuItem key={item.text} onClick={onClick}>
-          {item.text}
-        </MenuItem>
-      ))}
+    <NavComponent logo={logo} style={navbarStyle}>
+      {children}
     </NavComponent>
   );
 };
