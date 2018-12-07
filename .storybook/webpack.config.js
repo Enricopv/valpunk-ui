@@ -7,9 +7,34 @@ module.exports = (baseConfig, env, config) => {
   });
   config.plugins.push(new TSDocgenPlugin()); // optional
   config.resolve.extensions.push(".ts", ".tsx");
-  config.resolve.alias["components"] = path.resolve(
-    __dirname,
-    "src/components/basic"
-  );
+
+  config.resolve = {
+    ...baseConfig.resolve,
+    alias: {
+      "~/components/basic": path.resolve(__dirname, "../src/components/basic"),
+      "~/components/collections": path.resolve(
+        __dirname,
+        "../src/components/collections"
+      ),
+
+      "~/components/compositions": path.resolve(
+        __dirname,
+        "../src/components/compositions"
+      ),
+      "~/components/special": path.resolve(
+        __dirname,
+        "../src/components/special"
+      ),
+      "~/components/templates": path.resolve(
+        __dirname,
+        "../src/components/templates"
+      ),
+
+      "react-final-form": path.resolve(
+        __dirname,
+        "../node_modules/react-final-form/dist"
+      )
+    }
+  };
   return config;
 };

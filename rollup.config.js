@@ -4,6 +4,7 @@ import external from "rollup-plugin-peer-deps-external";
 import typescriptPlugin from "rollup-plugin-typescript3";
 import pkg from "./package.json";
 import babel from "rollup-plugin-babel";
+import postcss from "rollup-plugin-postcss";
 
 export default {
   input: "./src/index.ts",
@@ -70,6 +71,22 @@ export default {
           "Children"
         ]
       }
+    }),
+    postcss({
+      plugins: [
+        // cssnext(),
+        // yourPostcssPlugin()
+      ],
+      //sourceMap: false, // default value
+      //extract: false, // default value
+      extensions: [".css", ".sss"], // default value,
+      styleInject: {
+        fnName: "__$styleInject", // style-inject function name, default value,
+        options: {
+          insertAt: "top"
+        } // Optional
+      }
+      // parser: sugarss
     }),
     typescriptPlugin({
       target: "es2015",
