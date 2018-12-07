@@ -36,20 +36,15 @@ const Example = () => (
         tableTitle={"Table with Modal"}
         data={data}
       >
-        {({ clickedData }) => {
+        {({ clickedData, modalStyle }) => {
           if (!clickedData.data) {
             return <div>Loading...</div>;
           }
           return (
             <Paper
               style={{
-                position: "absolute",
-                top: "50%",
-                left: "50%",
-                transform: `translate(-50%, -50%)`,
-                maxWidth: "80%",
-                padding: 16,
-                wordWrap: "normal"
+                ...modalStyle,
+                backgroundColor: "orange"
               }}
             >
               <Typography variant="h6">Clicked Content</Typography>

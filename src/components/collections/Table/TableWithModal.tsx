@@ -43,6 +43,7 @@ export interface TableWithModalProps {
       clickedData: { data?: any };
       handleOpen: () => void;
       handleClose: () => void;
+      modalStyle: React.CSSProperties;
     }
   ) => React.ReactNode;
 }
@@ -102,7 +103,16 @@ const TableWithModal = ({
         {children({
           clickedData: modalInfo,
           handleOpen,
-          handleClose
+          handleClose,
+          modalStyle: {
+            position: "absolute",
+            top: "50%",
+            left: "50%",
+            transform: `translate(-50%, -50%)`,
+            maxWidth: "80%",
+            padding: 16,
+            wordWrap: "normal"
+          }
         })}
       </Modal>
     </Paper>
