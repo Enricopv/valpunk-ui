@@ -5,6 +5,7 @@ import Toolbar from "@material-ui/core/Toolbar";
 import MenuIcon from "@material-ui/icons/Menu";
 import * as React from "react";
 import { NavbarGeneralProps } from "./index";
+import { MenuItem } from "@material-ui/core";
 
 const MobileNavbar = (props: NavbarGeneralProps) => {
   const [anchorEl, setAnchorEl] = React.useState(null);
@@ -29,13 +30,13 @@ const MobileNavbar = (props: NavbarGeneralProps) => {
         }}
       >
         <Toolbar>
-          <IconButton
+          <MenuItem
             color="inherit"
             aria-label="Menu"
             onClick={props.logo.onClick}
           >
             <img src={props.logo.src} style={{ width: 80, height: "auto" }} />
-          </IconButton>
+          </MenuItem>
           <div style={{ flexGrow: 1 }} />
           <div>
             <IconButton

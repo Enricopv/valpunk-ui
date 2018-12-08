@@ -3,6 +3,7 @@ import IconButton from "@material-ui/core/IconButton";
 import Toolbar from "@material-ui/core/Toolbar";
 import * as React from "react";
 import { NavbarGeneralProps } from "../index";
+import { MenuItem } from "@material-ui/core";
 
 const MobileNavbar = (props: NavbarGeneralProps) => {
   return (
@@ -22,13 +23,13 @@ const MobileNavbar = (props: NavbarGeneralProps) => {
             paddingRight: "10%"
           }}
         >
-          <IconButton color="inherit" aria-label="Menu">
-            <img
-              src={props.logo.src}
-              style={{ width: 100, height: "auto" }}
-              onClick={props.logo.onClick}
-            />
-          </IconButton>
+          <MenuItem
+            color="inherit"
+            aria-label="Menu"
+            onClick={props.logo.onClick}
+          >
+            <img src={props.logo.src} style={{ width: 100, height: "auto" }} />
+          </MenuItem>
           <div style={{ flexGrow: 1 }} />
 
           {props.children}
