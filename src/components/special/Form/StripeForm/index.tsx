@@ -58,8 +58,8 @@ const StripeForm = ({ stripe }: Props) => {
     onBlur: () => {
       console.log("[blur]");
     },
-    onChange: () => {
-      console.log("[change]");
+    onChange: (data: any) => {
+      console.log(data);
     },
     onFocus: () => {
       console.log("[focus]");
